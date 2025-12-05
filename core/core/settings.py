@@ -16,7 +16,7 @@ DEBUG = os.environ.get("DEBUG", "True") == "True"
 
 ALLOWED_HOSTS = os.environ.get(
     "ALLOWED_HOSTS",
-    "localhost,127.0.0.1"
+    "localhost,127.0.0.1",
 ).split(",")
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     "corsheaders",
     "shop",
     "axes",
+    "cloudinary",
+    "cloudinary_storage",
 ]
 
 # -----------------------------
@@ -131,3 +133,14 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # DEFAULT FIELD
 # -----------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": os.getenv("CLOUDINARY_CLOUD_NAME"),
+    "API_KEY": os.getenv("CLOUDINARY_API_KEY"),
+    "API_SECRET": os.getenv("CLOUDINARY_API_SECRET"),
+}
+
+# Use Cloudinary for uploaded files (ImageField / FileField)
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
+MEDIA_URL = "/media/"
